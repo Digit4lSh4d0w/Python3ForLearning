@@ -1,11 +1,11 @@
 import os, shutil
 
-EXTENSION = ['txt', 'csv']
+EXTENSION = 'txt'
 FilesForReading = []
 listFiles = os.listdir()
 
 for file in listFiles:
-	if file.split('.')[-1] in EXTENSION:
+	if file.split('.')[-1] == EXTENSION:
 		FilesForReading.append(file)
 
 if FilesForReading:

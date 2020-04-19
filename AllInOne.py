@@ -1,23 +1,44 @@
 import os, shutil
 
 EXTENSION = 'txt'
-FilesForReading = []
+arrayForReading = []
 listFiles = os.listdir()
 
 for file in listFiles:
 	if file.split('.')[-1] == EXTENSION:
-		FilesForReading.append(file)
+		arrayForReading.append(file)
 
-if FilesForReading:
-	allPass = open('AllPasswords.txt', 'w', encoding='utf-8')
-	for file in FilesForReading:
-		print('#%s File: %s'%(FilesForReading.index(file), file))
-		listOfPasswords = open('%s'%(file), 'r', encoding='utf-8')
-		try:
-			allPass.write(listOfPasswords.read() + '\n')
-		except UnicodeDecodeError:
-			print('WRONG SYMBOL')
-		listOfPasswords.close()
-	allPass.close()
+if arrayForReading:
+	writeFile = open('allPasswords.txt', 'w')
+	for filesForReading in arrayForReading:
+		print('\n#%s File: %s'%(arrayForReading.index(filesForReading), arrayForReading[arrayForReading.index(filesForReading)]), end='')
+		with open(filesForReading, 'r') as readFile:
+			try:
+				for line in readFile:
+					writeFile.write(line)
+			except UnicodeDecodeError:
+				print(' WRONG SYMBOL')
+	writeFile.close()
 else:
 	print('No Files Left')
+	
+#### Очистка паролей от дубликатов
+
+print('Началась очистка списка от мусора')
+writeFile = open('allPasswords.txt', 'r')
+cleanWriteFile = open('cleanPasswordsFromDublicate', 'w')
+for password in writeFile:
+	for dublicate in writeFile:
+		if writeFile.index(dublicate) == len(writeFile):
+			print('Завершено')
+			break
+		elif dublicate == password:
+			continue
+		cleanWriteFile.write(dublicate)
+writeFile.close()
+		
+print('''################
+Все задания завершены
+################
+Всего паролей : %s'''%(len(cleanWriteFile)))
+cleamWriteFile

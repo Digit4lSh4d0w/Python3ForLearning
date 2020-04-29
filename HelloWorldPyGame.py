@@ -36,7 +36,7 @@ pygame.draw.line(windowSurface, BLUE,(120, 60), (60, 120))
 pygame.draw.line(windowSurface, BLUE,(60, 120), (120, 120), 4)
 
 # Нанесение на поверхность синего круга
-pygame.draw.circle(windowSurface, BLUE, (500, 50), 20, 0)
+pygame.draw.circle(windowSurface, BLUE, (300, 50), 20, 0)
 
 # Нанесение на поверхность красного элипса
 pygame.draw.ellipse(windowSurface, RED, (300, 250, 40, 80), 1)

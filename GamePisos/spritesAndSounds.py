@@ -23,7 +23,7 @@ foodStretchedImage = pygame.transform.scale(foodImage, (25,30))
 foods = []
 for i in range(20):
 	foods.append(pygame.Rect(random.randint(0, WINDOWWIDTH - 20), random.randint(0, WINDOWHEIGHT - 20), 20, 20))
-	
+
 foodCounter = 0
 NEWFOOD = 20
 
@@ -86,16 +86,16 @@ while True:
 
 		if event.type == MOUSEBUTTONUP:
 			foods.append(pygame.Rect(event.pos[0] - 10, event.pos[1] - 10, 20, 20))
-			
+
 	foodCounter += 1
 	if foodCounter >= NEWFOOD:
 		# Добавление новой "еды"
 		foodCounter = 0
 		foods.append(pygame.Rect(random.randint(0, WINDOWWIDTH - 20), random.randint(0, WINDOWHEIGHT - 20), 20, 20))
-		
+
 	# Создание на поверхности белого фона
 	windowSurface.fill(WHITE)
-	
+
 	# Перемещение игрока
 	if moveDown and player.bottom < WINDOWHEIGHT:
 		player.top += MOVESPEED
@@ -105,11 +105,11 @@ while True:
 		player.left -= MOVESPEED
 	if moveRight and player.right < WINDOWWIDTH:
 		player.right += MOVESPEED
-	
-	
+
+
 	# Отображение блока на поверхности
 	windowSurface.blit(playerStretchedImage, player)
-	
+
 	# Проверка, не пересекся ли игрок с какими-либо блоками "еды"
 	for food in foods[:]:
 		if player.colliderect(food):
@@ -118,11 +118,11 @@ while True:
 			playerStretchedImage = pygame.transform.scale(playerImage, (player.width, player.height))
 			if musicPlaying:
 				pickUpSound.play()
-			
+
 	# Отображение "еды"
 	for food in foods:
 		windowSurface.blit(foodStretchedImage, food)
-	
+
 	# Вывод окна на экран
 	pygame.display.update()
 	mainClock.tick(60)

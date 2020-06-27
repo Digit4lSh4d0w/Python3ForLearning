@@ -1,44 +1,57 @@
-import os, shutil
+import os, time
 
 EXTENSION = 'txt'
-arrayForReading = []
-listFiles = os.listdir()
+filesInDir = os.listdir()
+filesForReading = []
+countOfStrings = 0
+countOfDublicat = 0
+progress = 0
+for file in filesInDir:
+    if file == "NotClean_FILE_PASSWORDS.txt":
+        continue
+    elif file.split('.')[-1] == EXTENSION:
+        filesForReading.append(file)
 
-for file in listFiles:
-	if file.split('.')[-1] == EXTENSION:
-		arrayForReading.append(file)
+def progress(filesForReading, file):
+    files = deg = index = progress = 0
+    progressBar = ''
+    files = len(filesForReading)
 
-if arrayForReading:
-	writeFile = open('allPasswords.txt', 'w')
-	for filesForReading in arrayForReading:
-		print('\n#%s File: %s'%(arrayForReading.index(filesForReading), arrayForReading[arrayForReading.index(filesForReading)]), end='')
-		with open(filesForReading, 'r') as readFile:
-			try:
-				for line in readFile:
-					writeFile.write(line)
-			except UnicodeDecodeError:
-				print(' WRONG SYMBOL')
-	writeFile.close()
-else:
-	print('No Files Left')
-	
-#### Очистка паролей от дубликатов
+    deg = 100/files
+    index = filesForReading.index(file) + 1
+    progress = deg * index
+    progressBar = '[' + '#' * round(progress/2) + '] deg: ' + str(round(progress)) + '%'
+    return progressBar
 
-print('Началась очистка списка от мусора')
-writeFile = open('allPasswords.txt', 'r')
-cleanWriteFile = open('cleanPasswordsFromDublicate', 'w')
-for password in writeFile:
-	for dublicate in writeFile:
-		if writeFile.index(dublicate) == len(writeFile):
-			print('Завершено')
-			break
-		elif dublicate == password:
-			continue
-		cleanWriteFile.write(dublicate)
-writeFile.close()
-		
-print('''################
-Все задания завершены
-################
-Всего паролей : %s'''%(len(cleanWriteFile)))
-cleamWriteFile
+print('##########-FILES-##########')
+print(filesForReading)
+print('##########-FILES-##########')
+
+newFilePasswords = open('NotClean_FILE_PASSWORDS.txt', 'w')
+
+for file in filesForReading:
+    passwords = open(file, 'r')
+    try:
+        for string in passwords:
+            newFilePasswords.write(string)
+            countOfStrings += 1
+            print('count: %s, file: %s, pass: %s' % (countOfStrings, file, string), end='')
+        passwords.close()
+        print(progress(filesForReading, file))
+        time.sleep(0.1)
+    except UnicodeDecodeError:
+        continue
+
+newFilePasswords.close()
+
+newFilePasswords = open('NotClean_FILE_PASSWORDS.txt', 'r')
+
+DoneFilePasswords = open('DoneFilePasswords.txt', 'w')
+for string in newFilePasswords:
+    for secondString in newFilePasswords:
+        if string == secondString:
+            print(string + ' # ' + secondString, end='')
+            countOfDublicat += 1
+print('Total dublicats: ' + str(countOfDublicat))
+
+newFilePasswords.close()

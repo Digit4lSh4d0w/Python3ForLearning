@@ -76,7 +76,7 @@ while True:
 	reverseCheat = slowCheat = False
 	baddieAddCounter = 0
 	pygame.mixer.music.play(-1, 0.0)
-	
+
 	while True: # Игровой цикл выполняется, пока игра работает
 		score += 1 # Увеличение количества очков
 
@@ -132,9 +132,9 @@ while True:
 			baddieAddCounter = 0
 			baddieSize = random.randint(BADDIEMINSIZE, BADDIEMAXSIZE)
 			newBaddie = {'rect': pygame.Rect(random.randint(0, WINDOWWIDTH - baddieSize), 0 - baddieSize, baddieSize, baddieSize),
-						'speed': random.randint(BADDIEMINSPEED, BADDIEMAXSPEED),
-						'surface': pygame.transform.scale(baddieImage, (baddieSize, baddieSize))
-						}
+									'speed': random.randint(BADDIEMINSPEED, BADDIEMAXSPEED),
+									'surface': pygame.transform.scale(baddieImage, (baddieSize, baddieSize))
+									}
 
 			baddies.append(newBaddie)
 
